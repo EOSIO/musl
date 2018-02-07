@@ -1,4 +1,5 @@
-#include <unistd.h>
+//include <unistd.h>
+#include <bits/alltypes.h>
 
 void swab(const void *restrict _src, void *restrict _dest, ssize_t n)
 {

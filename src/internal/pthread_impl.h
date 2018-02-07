@@ -1,24 +1,28 @@
 #ifndef _PTHREAD_IMPL_H
 #define _PTHREAD_IMPL_H
 
-#include <pthread.h>
-#include <signal.h>
+//include <pthread.h>
+//include <signal.h>
 #include <errno.h>
 #include <limits.h>
 #include "libc.h"
-#include "syscall.h"
-#include "atomic.h"
-#include "futex.h"
+//include "syscall.h"
+//include "atomic.h"
+//include "futex.h"
 
 #define pthread __pthread
 
 struct pthread {
+   /*
 	struct pthread *self;
 	void **dtv, *unused1, *unused2;
 	uintptr_t sysinfo;
 	uintptr_t canary, canary2;
 	pid_t tid, pid;
-	int tsd_used, errno_val;
+        int tsd_used;
+   */
+   int errno_val;
+   /*
 	volatile int cancel, canceldisable, cancelasync;
 	int detached;
 	unsigned char *map_base;
@@ -38,7 +42,9 @@ struct pthread {
 	} robust_list;
 	int unblock_cancel;
 	volatile int timer_id;
+   */
 	locale_t locale;
+   /*
 	volatile int killlock[2];
 	volatile int exitlock[2];
 	volatile int startlock[2];
@@ -48,8 +54,9 @@ struct pthread {
 	void *stdio_locks;
 	uintptr_t canary_at_end;
 	void **dtv_copy;
+   */
 };
-
+/*
 struct __timer {
 	int timerid;
 	pthread_t thread;
@@ -86,9 +93,9 @@ struct __timer {
 #define _b_count __u.__vi[3]
 #define _b_waiters2 __u.__vi[4]
 #define _b_inst __u.__p[3]
-
+*/
 #include "pthread_arch.h"
-
+/*
 #ifndef CANARY
 #define CANARY canary
 #endif
@@ -149,5 +156,5 @@ void __restore_sigs(void *);
 #define DEFAULT_GUARD_SIZE 4096
 
 #define __ATTRP_C11_THREAD ((void*)(uintptr_t)-1)
-
+*/
 #endif

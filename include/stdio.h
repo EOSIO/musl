@@ -60,8 +60,8 @@ extern FILE *const stderr;
 #define stdout (stdout)
 #define stderr (stderr)
 
-FILE *fopen(const char *__restrict, const char *__restrict);
-FILE *freopen(const char *__restrict, const char *__restrict, FILE *__restrict);
+//FILE *fopen(const char *__restrict, const char *__restrict);
+//FILE *freopen(const char *__restrict, const char *__restrict, FILE *__restrict);
 int fclose(FILE *);
 
 int remove(const char *);
@@ -130,8 +130,8 @@ FILE *tmpfile(void);
 FILE *fmemopen(void *__restrict, size_t, const char *__restrict);
 FILE *open_memstream(char **, size_t *);
 FILE *fdopen(int, const char *);
-FILE *popen(const char *, const char *);
-int pclose(FILE *);
+//FILE *popen(const char *, const char *);
+//int pclose(FILE *);
 int fileno(FILE *);
 int fseeko(FILE *, off_t, int);
 off_t ftello(FILE *);

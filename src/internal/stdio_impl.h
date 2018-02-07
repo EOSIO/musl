@@ -2,7 +2,7 @@
 #define _STDIO_IMPL_H
 
 #include <stdio.h>
-#include "syscall.h"
+//include "syscall.h"
 #include "libc.h"
 
 #define UNGET 8

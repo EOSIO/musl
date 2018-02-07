@@ -2,6 +2,8 @@
 
 off_t __stdio_seek(FILE *f, off_t off, int whence)
 {
+   return -1;
+   /*
 	off_t ret;
 #ifdef SYS__llseek
 	if (syscall(SYS__llseek, f->fd, off>>32, off, &ret, whence)<0)
@@ -10,4 +12,5 @@ off_t __stdio_seek(FILE *f, off_t off, int whence)
 	ret = syscall(SYS_lseek, f->fd, off, whence);
 #endif
 	return ret;
+   */
 }
