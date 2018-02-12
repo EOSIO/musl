@@ -83,6 +83,7 @@ size_t __ctype_get_mb_cur_max(void);
  || defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) \
  || defined(_BSD_SOURCE)
 
+int posix_memalign (void **, size_t, size_t);
 int setenv (const char *, const char *, int);
 int unsetenv (const char *);
 int getsubopt (char **, char *const *, char **);
