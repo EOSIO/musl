@@ -9,6 +9,8 @@
 #include "libc.h"
 #include "time_impl.h"
 
+#include <assert.h>
+
 const char *__nl_langinfo_l(nl_item, locale_t);
 
 static int is_leap(int y)
@@ -45,7 +47,6 @@ static int week_num(const struct tm *tm)
 	return val;
 }
 
-const char *__tm_to_tzname(const struct tm *);
 size_t __strftime_l(char *restrict, size_t, const char *restrict, const struct tm *restrict, locale_t);
 
 const char *__strftime_fmt_1(char (*s)[100], size_t *l, int f, const struct tm *tm, locale_t loc, int pad)
@@ -186,11 +187,7 @@ const char *__strftime_fmt_1(char (*s)[100], size_t *l, int f, const struct tm *
 			abs(tm->__tm_gmtoff%3600)/60);
 		return *s;
 	case 'Z':
-		if (tm->tm_isdst < 0) {
-			*l = 0;
-			return "";
-		}
-		fmt = __tm_to_tzname(tm);
+                __assert_fail("strftime %Z not supported.", __FILE__, __LINE__, __func__);
 		goto string;
 	case '%':
 		*l = 1;

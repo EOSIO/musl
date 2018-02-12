@@ -60,13 +60,6 @@ extern FILE *const stderr;
 #define stdout (stdout)
 #define stderr (stderr)
 
-//FILE *fopen(const char *__restrict, const char *__restrict);
-//FILE *freopen(const char *__restrict, const char *__restrict, FILE *__restrict);
-int fclose(FILE *);
-
-int remove(const char *);
-int rename(const char *, const char *);
-
 int feof(FILE *);
 int ferror(FILE *);
 int fflush(FILE *);
@@ -121,46 +114,25 @@ void perror(const char *);
 int setvbuf(FILE *__restrict, char *__restrict, int, size_t);
 void setbuf(FILE *__restrict, char *__restrict);
 
-char *tmpnam(char *);
-FILE *tmpfile(void);
-
 #if defined(_POSIX_SOURCE) || defined(_POSIX_C_SOURCE) \
  || defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) \
  || defined(_BSD_SOURCE)
 FILE *fmemopen(void *__restrict, size_t, const char *__restrict);
 FILE *open_memstream(char **, size_t *);
-FILE *fdopen(int, const char *);
-//FILE *popen(const char *, const char *);
-//int pclose(FILE *);
 int fileno(FILE *);
 int fseeko(FILE *, off_t, int);
 off_t ftello(FILE *);
 int dprintf(int, const char *__restrict, ...);
 int vdprintf(int, const char *__restrict, __isoc_va_list);
-void flockfile(FILE *);
-int ftrylockfile(FILE *);
-void funlockfile(FILE *);
 int getc_unlocked(FILE *);
 int getchar_unlocked(void);
 int putc_unlocked(int, FILE *);
 int putchar_unlocked(int);
 ssize_t getdelim(char **__restrict, size_t *__restrict, int, FILE *__restrict);
 ssize_t getline(char **__restrict, size_t *__restrict, FILE *__restrict);
-int renameat(int, const char *, int, const char *);
-char *ctermid(char *);
-#define L_ctermid 20
-#endif
-
-
-#if defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) \
- || defined(_BSD_SOURCE)
-#define P_tmpdir "/tmp"
-char *tempnam(const char *, const char *);
 #endif
 
 #if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
-#define L_cuserid 20
-char *cuserid(char *);
 void setlinebuf(FILE *);
 void setbuffer(FILE *, char *, size_t);
 int fgetc_unlocked(FILE *);
@@ -200,8 +172,6 @@ FILE *fopencookie(void *, const char *, cookie_io_functions_t);
 
 #if defined(_LARGEFILE64_SOURCE) || defined(_GNU_SOURCE)
 #define tmpfile64 tmpfile
-#define fopen64 fopen
-#define freopen64 freopen
 #define fseeko64 fseeko
 #define ftello64 ftello
 #define fgetpos64 fgetpos

@@ -113,12 +113,6 @@ static size_t zi_dotprod(const unsigned char *z, const unsigned char *v, size_t 
 	return y;
 }
 
-int __munmap(void *, size_t);
-
-static void do_tzset()
-{
-}
-
 /* Search zoneinfo rules to find the one that applies to the given time,
  * and determine alternate opposite-DST-status rule that may be needed. */
 
@@ -217,87 +211,4 @@ static long long rule_to_secs(const int *rule, int year)
 	}
 	t += rule[4];
 	return t;
-}
-
-/* Determine the time zone in effect for a given time in seconds since the
- * epoch. It can be given in local or universal time. The results will
- * indicate whether DST is in effect at the queried time, and will give both
- * the GMT offset for the active zone/DST rule and the opposite DST. This
- * enables a caller to efficiently adjust for the case where an explicit
- * DST specification mismatches what would be in effect at the time. */
-
-void __secs_to_zone(long long t, int local, int *isdst, long *offset, long *oppoff, const char **zonename)
-{
-	LOCK(lock);
-
-	do_tzset();
-
-	if (zi) {
-		size_t alt, i = scan_trans(t, local, &alt);
-		if (i != -1) {
-			*isdst = types[6*i+4];
-			*offset = (int32_t)zi_read32(types+6*i);
-			*zonename = (const char *)abbrevs + types[6*i+5];
-			if (oppoff) *oppoff = (int32_t)zi_read32(types+6*alt);
-			UNLOCK(lock);
-			return;
-		}
-	}
-
-	if (!__daylight) goto std;
-
-	/* FIXME: may be broken if DST changes right at year boundary?
-	 * Also, this could be more efficient.*/
-	long long y = t / 31556952 + 70;
-	while (__year_to_secs(y, 0) > t) y--;
-	while (__year_to_secs(y+1, 0) < t) y++;
-
-	long long t0 = rule_to_secs(r0, y);
-	long long t1 = rule_to_secs(r1, y);
-
-	if (!local) {
-		t0 += __timezone;
-		t1 += dst_off;
-	}
-	if (t0 < t1) {
-		if (t >= t0 && t < t1) goto dst;
-		goto std;
-	} else {
-		if (t >= t1 && t < t0) goto std;
-		goto dst;
-	}
-std:
-	*isdst = 0;
-	*offset = -__timezone;
-	if (oppoff) *oppoff = -dst_off;
-	*zonename = __tzname[0];
-	UNLOCK(lock);
-	return;
-dst:
-	*isdst = 1;
-	*offset = -dst_off;
-	if (oppoff) *oppoff = -__timezone;
-	*zonename = __tzname[1];
-	UNLOCK(lock);
-}
-
-void __tzset()
-{
-	LOCK(lock);
-	do_tzset();
-	UNLOCK(lock);
-}
-
-weak_alias(__tzset, tzset);
-
-const char *__tm_to_tzname(const struct tm *tm)
-{
-	const void *p = tm->__tm_zone;
-	LOCK(lock);
-	do_tzset();
-	if (p != __utc && p != __tzname[0] && p != __tzname[1] &&
-	    (!zi || (uintptr_t)p-(uintptr_t)abbrevs >= abbrevs_end - abbrevs))
-		p = "";
-	UNLOCK(lock);
-	return p;
 }
