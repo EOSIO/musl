@@ -30,3 +30,5 @@ typedef long suseconds_t;
 struct timeval { time_t tv_sec; suseconds_t tv_usec; };
 struct timespec { time_t tv_sec; long tv_nsec; };
 
+typedef float float_t;
+typedef double double_t;
