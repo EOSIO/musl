@@ -1,4 +1,4 @@
-#include <fenv.h>
+//include <fenv.h>
 #include <math.h>
 
 /* nearbyint is the same as rint, but it must not raise the inexact exception */
