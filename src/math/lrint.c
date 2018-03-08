@@ -1,5 +1,5 @@
 #include <limits.h>
-#include <fenv.h>
+//include <fenv.h>
 #include "libm.h"
 
 /*

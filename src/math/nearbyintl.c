@@ -7,7 +7,7 @@ long double nearbyintl(long double x)
 	return nearbyint(x);
 }
 #else
-#include <fenv.h>
+//include <fenv.h>
 long double nearbyintl(long double x)
 {
 #ifdef FE_INEXACT
