@@ -9,8 +9,7 @@ char *__crypt_blowfish(const char *, const char *, char *);
 char *__crypt_sha256(const char *, const char *, char *);
 char *__crypt_sha512(const char *, const char *, char *);
 
-char *__crypt_r(const char *key, const char *salt, struct crypt_data *data)
-{
+char *__crypt_r(const char *key, const char *salt, struct crypt_data *data) {
 	/* Per the crypt_r API, the caller has provided a pointer to
 	 * struct crypt_data; however, this implementation does not
 	 * use the structure to store any internal state, and treats
@@ -29,4 +28,10 @@ char *__crypt_r(const char *key, const char *salt, struct crypt_data *data)
 	return __crypt_des(key, salt, output);
 }
 
+#if __APPLE__
+char *crypt_r(const char *key, const char *salt, struct crypt_data *data) {
+   return __crypt_r(key, salt, data);
+}
+#else
 weak_alias(__crypt_r, crypt_r);
+#endif

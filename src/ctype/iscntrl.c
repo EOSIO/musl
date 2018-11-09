@@ -11,4 +11,10 @@ int __iscntrl_l(int c, locale_t l)
 	return iscntrl(c);
 }
 
-weak_alias(__iscntrl_l, iscntrl_l);
+#ifdef __APPLE__
+   int iscntrl_l(int c, locale_t l) {
+      return iscntrl_l(c,l);
+   }
+#else
+   weak_alias(__iscntrl_l, iscntrl_l);
+#endif
