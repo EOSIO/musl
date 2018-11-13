@@ -19,4 +19,10 @@ int __iswalpha_l(wint_t c, locale_t l)
 	return iswalpha(c);
 }
 
-weak_alias(__iswalpha_l, iswalpha_l);
+#ifdef __APPLE__
+   int iswalpha_l(wint_t c, locale_t l) {
+      return __iswalpha_l(c,l);
+   }
+#else
+   weak_alias(__iswalpha_l, iswalpha_l);
+#endif

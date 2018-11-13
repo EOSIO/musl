@@ -2,7 +2,12 @@
 #include "libc.h"
 
 static void dummy(FILE *f) { }
-weak_alias(dummy, __unlist_locked_file);
+
+#ifdef __APPLE__
+   static void __unlist_locked_file(FILE *f) { }
+#else
+   weak_alias(dummy, __unlist_locked_file);
+#endif
 
 int fclose(FILE *f)
 {

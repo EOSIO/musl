@@ -26,4 +26,10 @@ int fputws(const wchar_t *restrict ws, FILE *restrict f)
 	return l; /* 0 or -1 */
 }
 
-weak_alias(fputws, fputws_unlocked);
+#ifdef __APPLE__
+   int fputws_unlocked(const wchar_t *restrict ws, FILE *restrict f) {
+      return fputws(ws,f);
+   }
+#else
+   weak_alias(fputws, fputws_unlocked);
+#endif

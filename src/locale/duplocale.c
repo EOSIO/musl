@@ -12,4 +12,10 @@ locale_t __duplocale(locale_t old)
 	return new;
 }
 
-weak_alias(__duplocale, duplocale);
+#ifdef __APPLE__
+   locale_t duplocale(locale_t old) {
+      return __duplocale(old);
+   }
+#else
+   weak_alias(__duplocale, duplocale);
+#endif

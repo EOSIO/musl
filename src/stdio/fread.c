@@ -35,4 +35,10 @@ size_t fread(void *restrict destv, size_t size, size_t nmemb, FILE *restrict f)
 	return nmemb;
 }
 
-weak_alias(fread, fread_unlocked);
+#ifdef __APPLE__
+   size_t fread_unlocked(void *restrict destv, size_t size, size_t nmemb, FILE *restrict f) {
+      return fread(destv,size,nmemb,f);
+   }
+#else
+   weak_alias(fread, fread_unlocked);
+#endif

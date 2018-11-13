@@ -12,4 +12,10 @@ int __isprint_l(int c, locale_t l)
 	return isprint(c);
 }
 
-weak_alias(__isprint_l, isprint_l);
+#ifdef __APPLE__
+   int isprint_l(int c, locale_t l) {
+      return __isprint_l(c,l);
+   }
+#else
+   weak_alias(__isprint_l, isprint_l);
+#endif

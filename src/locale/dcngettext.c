@@ -110,7 +110,13 @@ static char *dummy_gettextdomain()
 	return "messages";
 }
 
-weak_alias(dummy_gettextdomain, __gettextdomain);
+#ifdef __APPLE__
+   static char *__gettextdomain() {
+      return "messages";
+   }
+#else
+   weak_alias(dummy_gettextdomain, __gettextdomain);
+#endif
 
 unsigned long __pleval(const char *, unsigned long);
 

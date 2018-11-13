@@ -30,4 +30,10 @@ wchar_t *fgetws(wchar_t *restrict s, int n, FILE *restrict f)
 	return (p == s) ? NULL : s;
 }
 
-weak_alias(fgetws, fgetws_unlocked);
+#ifdef __APPLE__
+   wchar_t *fgetws_unlocked(wchar_t *restrict s, int n, FILE *restrict f) {
+      return fgetws(s,n,f);
+   }
+#else
+   weak_alias(fgetws, fgetws_unlocked);
+#endif

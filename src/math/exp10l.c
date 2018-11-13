@@ -30,4 +30,10 @@ long double exp10l(long double x)
 }
 #endif
 
-weak_alias(exp10l, pow10l);
+#ifdef __APPLE__
+   long double pow10l(long double x) {
+      return exp10l(x);
+   }
+#else
+   weak_alias(exp10l, pow10l);
+#endif

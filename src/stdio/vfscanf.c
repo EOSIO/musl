@@ -333,4 +333,10 @@ match_fail:
 	return matches;
 }
 
-weak_alias(vfscanf,__isoc99_vfscanf);
+#ifdef __APPLE__
+   int __isoc99_vfscanf(FILE *restrict f, const char *restrict fmt, va_list ap) {
+      return vfscanf(f,fmt,ap);
+   }
+#else
+   weak_alias(vfscanf,__isoc99_vfscanf);
+#endif

@@ -27,5 +27,10 @@ tail:
 	return d;
 }
 
-weak_alias(__stpncpy, stpncpy);
-
+#ifdef __APPLE__
+   char *stpncpy(char *restrict d, const char *restrict s, size_t n) {
+      return stpncpy(d,s,n);
+   }
+#else
+   weak_alias(__stpncpy, stpncpy);
+#endif

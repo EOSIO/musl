@@ -15,4 +15,10 @@ int vsscanf(const char *restrict s, const char *restrict fmt, va_list ap)
 	return vfscanf(&f, fmt, ap);
 }
 
-weak_alias(vsscanf,__isoc99_vsscanf);
+#ifdef __APPLE__
+   int __isoc99_vsscanf(const char *restrict s, const char *restrict fmt, va_list ap) {
+      return vsscanf(s,fmt,ap);
+   }
+#else
+   weak_alias(vsscanf,__isoc99_vsscanf);
+#endif

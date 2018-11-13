@@ -14,4 +14,10 @@ int __strcasecmp_l(const char *l, const char *r, locale_t loc)
 	return strcasecmp(l, r);
 }
 
-weak_alias(__strcasecmp_l, strcasecmp_l);
+#ifdef __APPLE__
+   int strcasecmp_l(const char *l, const char *r, locale_t loc) {
+      return __strcasecmp_l(l,r,loc);
+   }
+#else
+   weak_alias(__strcasecmp_l, strcasecmp_l);
+#endif

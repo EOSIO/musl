@@ -11,4 +11,10 @@ int __iswlower_l(wint_t c, locale_t l)
 	return iswlower(c);
 }
 
-weak_alias(__iswlower_l, iswlower_l);
+#ifdef __APPLE__
+   int iswlower_l(wint_t c, locale_t l) {
+      return __iswlower_l(c,l);
+   }
+#else
+   weak_alias(__iswlower_l, iswlower_l);
+#endif

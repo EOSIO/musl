@@ -9,4 +9,10 @@ int putc(int c, FILE *f)
 	return c;
 }
 
-weak_alias(putc, _IO_putc);
+#ifdef __APPLE__
+   int _IO_putc(int c, FILE *f) {
+      return putc(c,f);
+   }
+#else
+   weak_alias(putc, _IO_putc);
+#endif

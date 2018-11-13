@@ -13,4 +13,10 @@ locale_t __uselocale(locale_t new)
 	return old == global ? LC_GLOBAL_LOCALE : old;
 }
 
-weak_alias(__uselocale, uselocale);
+#ifdef __APPLE__
+   locale_t uselocale(locale_t new) {
+      return __uselocale(new);
+   }
+#else
+   weak_alias(__uselocale, uselocale);
+#endif

@@ -12,4 +12,10 @@ int __isgraph_l(int c, locale_t l)
 	return isgraph(c);
 }
 
-weak_alias(__isgraph_l, isgraph_l);
+#ifdef __APPLE__
+   int isgraph_l(int c, locale_t l) {
+      return __isgraph_l(c,l);
+   }
+#else
+   weak_alias(__isgraph_l, isgraph_l);
+#endif

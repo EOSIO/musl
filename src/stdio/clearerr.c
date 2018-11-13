@@ -7,4 +7,10 @@ void clearerr(FILE *f)
 	FUNLOCK(f);
 }
 
-weak_alias(clearerr, clearerr_unlocked);
+#ifdef __APPLE__
+  void clearerr_unlocked(FILE* f) {
+     return clearerr(f);
+  } 
+#else
+   weak_alias(clearerr, clearerr_unlocked);
+#endif
