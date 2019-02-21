@@ -32,6 +32,15 @@ long ftell(FILE *f)
 	return pos;
 }
 
-weak_alias(__ftello, ftello);
+#ifdef __APPLE__
+   off_t ftello(FILE *f) {
+      return __ftello(f);
+   }
+   off_t ftello64(FILE *f) {
+      return __ftello(f);
+   }
+#else
+   weak_alias(__ftello, ftello);
+   LFS64(ftello);
+#endif
 
-LFS64(ftello);

@@ -21,4 +21,10 @@ size_t wcsxfrm(wchar_t *restrict dest, const wchar_t *restrict src, size_t n)
 	return __wcsxfrm_l(dest, src, n, CURRENT_LOCALE);
 }
 
-weak_alias(__wcsxfrm_l, wcsxfrm_l);
+#ifdef __APPLE__
+   size_t wcsxfrm_l(wchar_t *restrict dest, const wchar_t *restrict src, size_t n, locale_t loc) {
+      return __wcsxfrm_l(dest,src,n,loc);
+   }
+#else
+   weak_alias(__wcsxfrm_l, wcsxfrm_l);
+#endif

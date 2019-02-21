@@ -216,4 +216,10 @@ float __lgammaf_r(float x, int *signgamp)
 	return r;
 }
 
-weak_alias(__lgammaf_r, lgammaf_r);
+#ifdef __APPLE__
+   float lgammaf_r(float x, int *signgamp) {
+      return __lgammaf_r(x,signgamp);
+   }
+#else
+   weak_alias(__lgammaf_r, lgammaf_r);
+#endif

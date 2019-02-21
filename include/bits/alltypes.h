@@ -3,6 +3,14 @@
 #include <bits/wchar.h>
 #include <bits/stdint.h>
 
+#ifdef EOSIO_NATIVE
+#define _Addr long long 
+#define __INTPTR_WIDTH__ 64
+#else
+#define _Addr int
+#endif
+
+
 typedef size_t ssize_t;
 
 typedef __builtin_va_list va_list;

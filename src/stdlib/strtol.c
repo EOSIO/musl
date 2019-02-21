@@ -56,9 +56,30 @@ uintmax_t strtoumax(const char *restrict s, char **restrict p, int base)
 	return strtoull(s, p, base);
 }
 
-weak_alias(strtol, __strtol_internal);
-weak_alias(strtoul, __strtoul_internal);
-weak_alias(strtoll, __strtoll_internal);
-weak_alias(strtoull, __strtoull_internal);
-weak_alias(strtoimax, __strtoimax_internal);
-weak_alias(strtoumax, __strtoumax_internal);
+#ifdef __APPLE__
+   long __strtol_internal(const char *restrict s, char **restrict p, int base) {
+      return strtol(s,p,base);
+   }
+   unsigned long __strtoul_internal(const char *restrict s, char **restrict p, int base) {
+      return strtoul(s,p,base);
+   }
+   long long __strtoll_internal(const char *restrict s, char **restrict p, int base) {
+      return strtoll(s,p,base);
+   }
+   unsigned long long __strtoull_internal(const char *restrict s, char **restrict p, int base) {
+      return strtoull(s,p,base);
+   }
+   intmax_t __strtoimax_internal(const char *restrict s, char **restrict p, int base) {
+      return strtoimax(s,p,base);
+   }
+   uintmax_t __strtoumax_internal(const char *restrict s, char **restrict p, int base) {
+      return strtoumax(s,p,base);
+   }
+#else
+   weak_alias(strtol, __strtol_internal);
+   weak_alias(strtoul, __strtoul_internal);
+   weak_alias(strtoll, __strtoll_internal);
+   weak_alias(strtoull, __strtoull_internal);
+   weak_alias(strtoimax, __strtoimax_internal);
+   weak_alias(strtoumax, __strtoumax_internal);
+#endif

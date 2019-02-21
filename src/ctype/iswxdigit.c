@@ -11,4 +11,10 @@ int __iswxdigit_l(wint_t c, locale_t l)
 	return iswxdigit(c);
 }
 
-weak_alias(__iswxdigit_l, iswxdigit_l);
+#ifdef __APPLE__
+   int iswxdigit_l(wint_t c, locale_t l) {
+      return __iswxdigit_l(c,l);
+   }
+#else
+   weak_alias(__iswxdigit_l, iswxdigit_l);
+#endif

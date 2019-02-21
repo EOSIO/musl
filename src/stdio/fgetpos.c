@@ -8,4 +8,10 @@ int fgetpos(FILE *restrict f, fpos_t *restrict pos)
 	return 0;
 }
 
-LFS64(fgetpos);
+#ifdef __APPLE__
+   int fgetpos64(FILE *restrict f, fpos_t *restrict pos) {
+      return fgetpos(f,pos);
+   }
+#else
+   LFS64(fgetpos);
+#endif

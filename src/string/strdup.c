@@ -10,4 +10,10 @@ char *__strdup(const char *s)
 	return memcpy(d, s, l+1);
 }
 
-weak_alias(__strdup, strdup);
+#ifdef __APPLE__
+   char *strdup(const char *s) {
+      return __strdup(s);
+   }
+#else
+   weak_alias(__strdup, strdup);
+#endif

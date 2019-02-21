@@ -36,5 +36,14 @@ wint_t fputwc(wchar_t c, FILE *f)
 	return c;
 }
 
-weak_alias(__fputwc_unlocked, fputwc_unlocked);
-weak_alias(__fputwc_unlocked, putwc_unlocked);
+#ifdef __APPLE__
+   wint_t fputwc_unlocked(wchar_t c, FILE *f) {
+      return __fputwc_unlocked(c,f);
+   }
+   wint_t putwc_unlocked(wchar_t c, FILE *f) {
+      return __fputwc_unlocked(c,f);
+   }
+#else
+   weak_alias(__fputwc_unlocked, fputwc_unlocked);
+   weak_alias(__fputwc_unlocked, putwc_unlocked);
+#endif

@@ -58,5 +58,14 @@ wint_t fgetwc(FILE *f)
 	return c;
 }
 
-weak_alias(__fgetwc_unlocked, fgetwc_unlocked);
-weak_alias(__fgetwc_unlocked, getwc_unlocked);
+#ifdef __APPLE__
+   wint_t fgetwc_unlocked(FILE *f) {
+      return __fgetwc_unlocked(f);
+   }
+   wint_t getwc_unlocked(FILE *f) {
+      return __fgetwc_unlocked(f);
+   }
+#else
+   weak_alias(__fgetwc_unlocked, fgetwc_unlocked);
+   weak_alias(__fgetwc_unlocked, getwc_unlocked);
+#endif

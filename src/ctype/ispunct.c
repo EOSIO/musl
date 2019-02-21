@@ -11,4 +11,10 @@ int __ispunct_l(int c, locale_t l)
 	return ispunct(c);
 }
 
-weak_alias(__ispunct_l, ispunct_l);
+#ifdef __APPLE__
+   int ispunct_l(int c, locale_t l) {
+      return __ispunct_l(c,l);
+   }
+#else
+   weak_alias(__ispunct_l, ispunct_l);
+#endif

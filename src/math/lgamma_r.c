@@ -281,4 +281,10 @@ double __lgamma_r(double x, int *signgamp)
 	return r;
 }
 
-weak_alias(__lgamma_r, lgamma_r);
+#ifdef __APPLE__
+   double lgamma_r(double x, int *signgamp) {
+      return __lgamma_r(x,signgamp);
+   }
+#else
+   weak_alias(__lgamma_r, lgamma_r);
+#endif

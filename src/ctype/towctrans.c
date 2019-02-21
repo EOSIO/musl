@@ -314,5 +314,17 @@ wint_t __towlower_l(wint_t c, locale_t l)
 	return towlower(c);
 }
 
-weak_alias(__towupper_l, towupper_l);
-weak_alias(__towlower_l, towlower_l);
+#ifdef __APPLE__
+   wint_t towupper_l(wint_t c, locale_t l)
+   {
+      return __towupper_l(c,l);
+   }
+
+   wint_t towlower_l(wint_t c, locale_t l)
+   {
+      return __towlower_l(c,l);
+   }
+#else
+   weak_alias(__towupper_l, towupper_l);
+   weak_alias(__towlower_l, towlower_l);
+#endif

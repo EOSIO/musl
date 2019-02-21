@@ -70,5 +70,14 @@ char *__nl_langinfo(nl_item item)
 	return __nl_langinfo_l(item, CURRENT_LOCALE);
 }
 
-weak_alias(__nl_langinfo, nl_langinfo);
-weak_alias(__nl_langinfo_l, nl_langinfo_l);
+#ifdef __APPLE__
+   char *nl_langinfo_l(nl_item item, locale_t loc) {
+      return __nl_langinfo_l(item,loc);
+   }
+   char *nl_langinfo(nl_item item){
+      return __nl_langinfo(item);
+   }
+#else
+   weak_alias(__nl_langinfo, nl_langinfo);
+   weak_alias(__nl_langinfo_l, nl_langinfo_l);
+#endif

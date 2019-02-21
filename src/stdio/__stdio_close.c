@@ -5,7 +5,14 @@ static int dummy(int fd)
 	return fd;
 }
 
-weak_alias(dummy, __aio_close);
+#ifdef __APPLE__
+   static int __aio_close(int fd)
+   {
+      return fd;
+   }
+#else
+   weak_alias(dummy, __aio_close);
+#endif
 
 int __stdio_close(FILE *f)
 {

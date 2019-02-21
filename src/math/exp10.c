@@ -22,4 +22,10 @@ double exp10(double x)
 	return pow(10.0, x);
 }
 
-weak_alias(exp10, pow10);
+#ifdef __APPLE__
+   double pow10(double x) {
+      return exp10(x);
+   }
+#else
+   weak_alias(exp10, pow10);
+#endif

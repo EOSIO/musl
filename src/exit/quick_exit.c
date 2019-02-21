@@ -2,7 +2,12 @@
 #include "libc.h"
 
 static void dummy() { }
-weak_alias(dummy, __funcs_on_quick_exit);
+
+#ifdef __APPLE__
+   static void __funcs_on_quick_exit() {}
+#else
+   weak_alias(dummy, __funcs_on_quick_exit);
+#endif
 
 _Noreturn void quick_exit(int code)
 {

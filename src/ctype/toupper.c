@@ -12,4 +12,10 @@ int __toupper_l(int c, locale_t l)
 	return toupper(c);
 }
 
-weak_alias(__toupper_l, toupper_l);
+#ifdef __APPLE__
+   int toupper_l(int c, locale_t l) {
+      return __toupper_l(c,l);
+   }
+#else
+   weak_alias(__toupper_l, toupper_l);
+#endif

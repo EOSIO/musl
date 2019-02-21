@@ -330,4 +330,10 @@ match_fail:
 	return matches;
 }
 
-weak_alias(vfwscanf,__isoc99_vfwscanf);
+#ifdef __APPLE__
+   int __isoc99_vfwscanf(FILE *restrict f, const wchar_t *restrict fmt, va_list ap) {
+      return vfwscanf(f,fmt,ap);
+   }
+#else
+   weak_alias(vfwscanf,__isoc99_vfwscanf);
+#endif

@@ -10,5 +10,14 @@ int ferror(FILE *f)
 	return ret;
 }
 
-weak_alias(ferror, ferror_unlocked);
-weak_alias(ferror, _IO_ferror_unlocked);
+#ifdef __APPLE__
+   int ferror_unlocked(FILE *f) {
+      return ferror(f);
+   }
+   int _IO_ferror_unlocked(FILE *f) {
+      return ferror(f);
+   }
+#else
+   weak_alias(ferror, ferror_unlocked);
+   weak_alias(ferror, _IO_ferror_unlocked);
+#endif

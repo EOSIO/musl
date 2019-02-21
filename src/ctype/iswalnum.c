@@ -11,4 +11,12 @@ int __iswalnum_l(wint_t c, locale_t l)
 	return iswalnum(c);
 }
 
-weak_alias(__iswalnum_l, iswalnum_l);
+#ifdef __APPLE__
+   int iswalnum_l(wint_t c, locale_t l)
+   {
+      return __iswalnum_l(c,l);
+   }
+
+#else
+   weak_alias(__iswalnum_l, iswalnum_l);
+#endif
