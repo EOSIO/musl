@@ -8,4 +8,11 @@ void *__memrchr(const void *m, int c, size_t n)
 	return 0;
 }
 
+#ifdef __APPLE__
+void *memrchr(const void *m, int c, size_t n)
+{
+	return __memrchr(m,c,n);
+}
+#else
 weak_alias(__memrchr, memrchr);
+#endif

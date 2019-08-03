@@ -25,4 +25,11 @@ char *__strchrnul(const char *s, int c)
 	return (char *)s;
 }
 
+#ifdef __APPLE__
+char *strchrnul(const char *s, int c)
+{
+	return __strchrnul(s,c);
+}
+#else
 weak_alias(__strchrnul, strchrnul);
+#endif

@@ -14,4 +14,11 @@ int __strncasecmp_l(const char *l, const char *r, size_t n, locale_t loc)
 	return strncasecmp(l, r, n);
 }
 
+#ifdef __APPLE__
+int strncasecmp_l(const char *l, const char *r, size_t n, locale_t loc)
+{
+	return __strncasecmp_l(l,r,n,loc);
+}
+#else
 weak_alias(__strncasecmp_l, strncasecmp_l);
+#endif

@@ -26,4 +26,11 @@ char *__stpcpy(char *restrict d, const char *restrict s)
 	return d;
 }
 
+#ifdef __APPLE__
+char *stpcpy(char *restrict d, const char *restrict s)
+{
+	return __stpcpy(d,s);
+}
+#else
 weak_alias(__stpcpy, stpcpy);
+#endif
