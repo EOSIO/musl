@@ -4,7 +4,10 @@
 #include <unistd.h>
 
 static void dummy(char *old, char *new) {}
+#ifdef __APPLE__
+static void __env_rm_add(char *old, char *new) {}
 weak_alias(dummy, __env_rm_add);
+#endif
 
 int unsetenv(const char *name)
 {
