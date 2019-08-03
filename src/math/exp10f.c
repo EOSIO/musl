@@ -19,4 +19,11 @@ float exp10f(float x)
 	return exp2(3.32192809488736234787031942948939 * x);
 }
 
+#ifdef __APPLE__
+float pow10f(float x)
+{
+	return exp10f(x);
+}
+#else
 weak_alias(exp10f, pow10f);
+#endif

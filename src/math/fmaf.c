@@ -25,7 +25,7 @@
  * SUCH DAMAGE.
  */
 
-#include <fenv.h>
+//#include <fenv.h>
 #include <math.h>
 #include <stdint.h>
 

@@ -33,7 +33,7 @@ long double fmal(long double x, long double y, long double z)
 	return fma(x, y, z);
 }
 #elif (LDBL_MANT_DIG == 64 || LDBL_MANT_DIG == 113) && LDBL_MAX_EXP == 16384
-#include <fenv.h>
+//#include <fenv.h>
 #if LDBL_MANT_DIG == 64
 #define LASTBIT(u) (u.i.m & 1)
 #define SPLIT (0x1p32L + 1)

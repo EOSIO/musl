@@ -350,4 +350,11 @@ long double lgammal(long double x)
 	return __lgammal_r(x, &__signgam);
 }
 
+#ifdef __APPLE__
+long double lgammal_r(long double x, int *sg)
+{
+	return __lgammal_r(x,sg);
+}
+#else
 weak_alias(__lgammal_r, lgammal_r);
+#endif
