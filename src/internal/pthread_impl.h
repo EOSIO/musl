@@ -1,30 +1,35 @@
 #ifndef _PTHREAD_IMPL_H
 #define _PTHREAD_IMPL_H
 
-#include <pthread.h>
-#include <signal.h>
+//#include <pthread.h>
+//#include <signal.h>
 #include <errno.h>
 #include <limits.h>
-#include <sys/mman.h>
+//#include <sys/mman.h>
 #include "libc.h"
-#include "syscall.h"
-#include "atomic.h"
-#include "futex.h"
+//#include "syscall.h"
+//#include "atomic.h"
+//#include "futex.h"
 
 #define pthread __pthread
 
 struct pthread {
 	/* Part 1 -- these fields may be external or
 	 * internal (accessed via asm) ABI. Do not change. */
+	/*
 	struct pthread *self;
 	uintptr_t *dtv;
 	struct pthread *prev, *next; /* non-ABI */
 	uintptr_t sysinfo;
 	uintptr_t canary, canary2;
+	*/
 
 	/* Part 2 -- implementation details, non-ABI. */
+	/*
 	int tid;
+	*/
 	int errno_val;
+	/*
 	volatile int detach_state;
 	volatile int cancel;
 	volatile unsigned char canceldisable, cancelasync;
@@ -44,15 +49,20 @@ struct pthread {
 		volatile void *volatile pending;
 	} robust_list;
 	volatile int timer_id;
+	*/
 	locale_t locale;
+	/*
 	volatile int killlock[1];
 	char *dlerror_buf;
 	void *stdio_locks;
+	*/
 
 	/* Part 3 -- the positions of these fields relative to
 	 * the end of the structure is external and internal ABI. */
+	/*
 	uintptr_t canary_at_end;
 	uintptr_t *dtv_copy;
+	*/
 };
 
 enum {
@@ -61,10 +71,12 @@ enum {
 	DT_DETACHED,
 };
 
+/*
 struct __timer {
 	int timerid;
 	pthread_t thread;
 };
+*/
 
 #define __SU (sizeof(size_t)/sizeof(int))
 
@@ -100,6 +112,7 @@ struct __timer {
 
 #include "pthread_arch.h"
 
+/*
 #ifndef CANARY
 #define CANARY canary
 #endif
@@ -187,5 +200,6 @@ extern hidden unsigned __default_guardsize;
 #define DEFAULT_GUARD_MAX (1<<20)
 
 #define __ATTRP_C11_THREAD ((void*)(uintptr_t)-1)
+*/
 
 #endif
