@@ -20,4 +20,11 @@ char *__crypt_r(const char *key, const char *salt, struct crypt_data *data)
 	return __crypt_des(key, salt, output);
 }
 
+#if __APPLE__
+char *crypt_r(const char *key, const char *salt, struct crypt_data *data)
+{
+	return __crypt_r(key, salt, data);
+}
+#else
 weak_alias(__crypt_r, crypt_r);
+#endif
