@@ -18,11 +18,12 @@
 
 void __lock(volatile int *l)
 {
+	/*
 	if (!libc.threads_minus_1) return;
-	/* fast path: INT_MIN for the lock, +1 for the congestion */
+	// fast path: INT_MIN for the lock, +1 for the congestion
 	int current = a_cas(l, 0, INT_MIN + 1);
 	if (!current) return;
-	/* A first spin loop, for medium congestion. */
+	// A first spin loop, for medium congestion.
 	for (unsigned i = 0; i < 10; ++i) {
 		if (current < 0) current -= INT_MIN + 1;
 		// assertion: current >= 0
@@ -32,29 +33,34 @@ void __lock(volatile int *l)
 	}
 	// Spinning failed, so mark ourselves as being inside the CS.
 	current = a_fetch_add(l, 1) + 1;
-	/* The main lock acquisition loop for heavy congestion. The only
-	 * change to the value performed inside that loop is a successful
-	 * lock via the CAS that acquires the lock. */
+	// The main lock acquisition loop for heavy congestion. The only
+	// change to the value performed inside that loop is a successful
+	// lock via the CAS that acquires the lock.
 	for (;;) {
-		/* We can only go into wait, if we know that somebody holds the
-		 * lock and will eventually wake us up, again. */
+		// We can only go into wait, if we know that somebody holds the
+		// lock and will eventually wake us up, again.
 		if (current < 0) {
 			__futexwait(l, current, 1);
 			current -= INT_MIN + 1;
 		}
-		/* assertion: current > 0, the count includes us already. */
+		// assertion: current > 0, the count includes us already.
 		int val = a_cas(l, current, INT_MIN + current);
 		if (val == current) return;
 		current = val;
 	}
+	*/
+	*l = 1;
 }
 
 void __unlock(volatile int *l)
 {
-	/* Check l[0] to see if we are multi-threaded. */
+	/*
+	// Check l[0] to see if we are multi-threaded.
 	if (l[0] < 0) {
 		if (a_fetch_add(l, -(INT_MIN + 1)) != (INT_MIN + 1)) {
 			__wake(l, 1, 1);
 		}
 	}
+	*/
+	*l = 0;
 }
