@@ -33,4 +33,11 @@ char *strerror(int e)
 	return __strerror_l(e, CURRENT_LOCALE);
 }
 
+#ifdef __APPLE__
+char *strerror_l(int e, locale_t loc)
+{
+	return __strerror_l(e,loc);
+}
+#else
 weak_alias(__strerror_l, strerror_l);
+#endif
