@@ -11,4 +11,11 @@ int __isalpha_l(int c, locale_t l)
 	return isalpha(c);
 }
 
+#ifdef __APPLE__
+int isalpha_l(int c, locale_t l)
+{
+	return __isalpha_l(c,l);
+}
+#else
 weak_alias(__isalpha_l, isalpha_l);
+#endif

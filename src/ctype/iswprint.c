@@ -23,4 +23,11 @@ int __iswprint_l(wint_t c, locale_t l)
 	return iswprint(c);
 }
 
+#ifdef __APPLE__
+int iswprint_l(wint_t c, locale_t l)
+{
+	return __iswprint_l(c,l);
+}
+#else
 weak_alias(__iswprint_l, iswprint_l);
+#endif

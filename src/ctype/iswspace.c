@@ -21,4 +21,11 @@ int __iswspace_l(wint_t c, locale_t l)
 	return iswspace(c);
 }
 
+#ifdef __APPLE__
+int iswspace_l(wint_t c, locale_t l)
+{
+	return __iswspace_l(c,l);
+}
+#else
 weak_alias(__iswspace_l, iswspace_l);
+#endif

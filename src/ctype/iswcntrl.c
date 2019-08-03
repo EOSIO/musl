@@ -13,4 +13,11 @@ int __iswcntrl_l(wint_t c, locale_t l)
 	return iswcntrl(c);
 }
 
+#ifdef __APPLE__
+int iswcntrl_l(wint_t c, locale_t l)
+{
+	return __iswcntrl_l(c,l);
+}
+#else
 weak_alias(__iswcntrl_l, iswcntrl_l);
+#endif
