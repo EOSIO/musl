@@ -29,9 +29,36 @@ long double strtold(const char *restrict s, char **restrict p)
 	return strtox(s, p, 2);
 }
 
+#ifdef __APPLE__
+float strtof_l(const char *restrict s, char **restrict p)
+{
+	return strtof(s,p);
+}
+double strtod_l(const char *restrict s, char **restrict p)
+{
+	return strtod(s,p);
+}
+long double strtold_l(const char *restrict s, char **restrict p)
+{
+	return strtold(s,p);
+}
+float __strtof_l(const char *restrict s, char **restrict p)
+{
+	return strtof(s,p);
+}
+double __strtod_l(const char *restrict s, char **restrict p)
+{
+	return strtod(s,p);
+}
+long double __strtold_l(const char *restrict s, char **restrict p)
+{
+	return strtold(s,p);
+}
+#else
 weak_alias(strtof, strtof_l);
 weak_alias(strtod, strtod_l);
 weak_alias(strtold, strtold_l);
 weak_alias(strtof, __strtof_l);
 weak_alias(strtod, __strtod_l);
 weak_alias(strtold, __strtold_l);
+#endif
