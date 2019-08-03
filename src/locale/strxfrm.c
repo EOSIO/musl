@@ -15,4 +15,11 @@ size_t strxfrm(char *restrict dest, const char *restrict src, size_t n)
 	return __strxfrm_l(dest, src, n, CURRENT_LOCALE);
 }
 
+#ifdef __APPLE__
+size_t strxfrm_l(char *restrict dest, const char *restrict src, size_t n, locale_t loc)
+{
+	return __strxfrm_l(dest,src,n,loc);
+}
+#else
 weak_alias(__strxfrm_l, strxfrm_l);
+#endif

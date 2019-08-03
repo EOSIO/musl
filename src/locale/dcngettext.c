@@ -3,8 +3,8 @@
 #include <string.h>
 #include <errno.h>
 #include <limits.h>
-#include <sys/stat.h>
-#include <sys/mman.h>
+//#include <sys/stat.h>
+//#include <sys/mman.h>
 #include <ctype.h>
 #include "locale_impl.h"
 #include "atomic.h"
@@ -112,10 +112,17 @@ static char *dummy_gettextdomain()
 	return "messages";
 }
 
+#ifdef __APPLE__
+static char *__gettextdomain() {
+	return "messages";
+}
+#else
 weak_alias(dummy_gettextdomain, __gettextdomain);
+#endif
 
 char *dcngettext(const char *domainname, const char *msgid1, const char *msgid2, unsigned long int n, int category)
 {
+	/*
 	static struct msgcat *volatile cats;
 	struct msgcat *p;
 	struct __locale_struct *loc = CURRENT_LOCALE;
@@ -161,13 +168,13 @@ notrans:
 		loclen = strlen(locname);
 		catlen = catlens[category];
 
-		/* Logically split @mod suffix from locale name. */
+		// Logically split @mod suffix from locale name.
 		modname = memchr(locname, '@', loclen);
 		if (!modname) modname = locname + loclen;
 		alt_modlen = modlen = loclen - (modname-locname);
 		loclen = modname-locname;
 
-		/* Drop .charset identifier; it is not used. */
+		// Drop .charset identifier; it is not used.
 		const char *csp = memchr(locname, '.', loclen);
 		if (csp) loclen = csp-locname;
 
@@ -180,7 +187,7 @@ notrans:
 				(int)alt_modlen, modname, catname, domainname);
 			if (map = __map_file(name, &map_size)) break;
 
-			/* Try dropping @mod, _YY, then both. */
+			// Try dropping @mod, _YY, then both.
 			if (alt_modlen) {
 				alt_modlen = 0;
 			} else if ((locp = memchr(locname, '_', loclen))) {
@@ -238,8 +245,8 @@ notrans:
 	const char *trans = __mo_lookup(p->map, p->map_size, msgid1);
 	if (!trans) goto notrans;
 
-	/* Non-plural-processing gettext forms pass a null pointer as
-	 * msgid2 to request that dcngettext suppress plural processing. */
+	// Non-plural-processing gettext forms pass a null pointer as
+	// msgid2 to request that dcngettext suppress plural processing.
 
 	if (msgid2 && p->nplurals) {
 		unsigned long plural = __pleval(p->plural_rule, n);
@@ -254,6 +261,8 @@ notrans:
 	}
 	errno = old_errno;
 	return (char *)trans;
+	*/
+	return (char *) ((n == 1) ? msgid1 : msgid2);
 }
 
 char *dcgettext(const char *domainname, const char *msgid, int category)

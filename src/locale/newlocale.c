@@ -55,4 +55,11 @@ locale_t __newlocale(int mask, const char *name, locale_t loc)
 	return loc;
 }
 
+#ifdef __APPLE__
+locale_t newlocale(int mask, const char *name, locale_t loc)
+{
+	return __newlocale(mask,name,loc);
+}
+#else
 weak_alias(__newlocale, newlocale);
+#endif
