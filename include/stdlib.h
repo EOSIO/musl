@@ -32,8 +32,10 @@ unsigned long strtoul (const char *__restrict, char **__restrict, int);
 long long strtoll (const char *__restrict, char **__restrict, int);
 unsigned long long strtoull (const char *__restrict, char **__restrict, int);
 
+/*
 int rand (void);
 void srand (unsigned);
+*/
 
 void *malloc (size_t);
 void *calloc (size_t, size_t);
@@ -86,6 +88,7 @@ size_t __ctype_get_mb_cur_max(void);
  || defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) \
  || defined(_BSD_SOURCE)
 
+/*
 #define WNOHANG    1
 #define WUNTRACED  2
 
@@ -95,27 +98,33 @@ size_t __ctype_get_mb_cur_max(void);
 #define WIFEXITED(s) (!WTERMSIG(s))
 #define WIFSTOPPED(s) ((short)((((s)&0xffff)*0x10001)>>8) > 0x7f00)
 #define WIFSIGNALED(s) (((s)&0xffff)-1U < 0xffu)
+*/
 
 int posix_memalign (void **, size_t, size_t);
 int setenv (const char *, const char *, int);
 int unsetenv (const char *);
+/*
 int mkstemp (char *);
 int mkostemp (char *, int);
 char *mkdtemp (char *);
+*/
 int getsubopt (char **, char *const *, char **);
-int rand_r (unsigned *);
+//int rand_r (unsigned *);
 
 #endif
 
 
 #if defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) \
  || defined(_BSD_SOURCE)
+/*
 char *realpath (const char *__restrict, char *__restrict);
 long int random (void);
 void srandom (unsigned int);
 char *initstate (unsigned int, char *, size_t);
 char *setstate (char *);
+*/
 int putenv (char *);
+/*
 int posix_openpt (int);
 int grantpt (int);
 int unlockpt (int);
@@ -132,19 +141,24 @@ long jrand48 (unsigned short [3]);
 void srand48 (long);
 unsigned short *seed48 (unsigned short [3]);
 void lcong48 (unsigned short [7]);
+*/
 #endif
 
 #if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
 #include <alloca.h>
+/*
 char *mktemp (char *);
 int mkstemps (char *, int);
 int mkostemps (char *, int, int);
 void *valloc (size_t);
 void *memalign(size_t, size_t);
 int getloadavg(double *, int);
+*/
 int clearenv(void);
+/*
 #define WCOREDUMP(s) ((s) & 0x80)
 #define WIFCONTINUED(s) ((s) == 0xffff)
+*/
 #endif
 
 #ifdef _GNU_SOURCE
@@ -158,6 +172,7 @@ double strtod_l(const char *__restrict, char **__restrict, struct __locale_struc
 long double strtold_l(const char *__restrict, char **__restrict, struct __locale_struct *);
 #endif
 
+/*
 #if defined(_LARGEFILE64_SOURCE) || defined(_GNU_SOURCE)
 #define mkstemp64 mkstemp
 #define mkostemp64 mkostemp
@@ -166,6 +181,7 @@ long double strtold_l(const char *__restrict, char **__restrict, struct __locale
 #define mkostemps64 mkostemps
 #endif
 #endif
+*/
 
 #ifdef __cplusplus
 }

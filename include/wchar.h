@@ -91,9 +91,11 @@ size_t mbrlen (const char *__restrict, size_t, mbstate_t *__restrict);
 size_t mbsrtowcs (wchar_t *__restrict, const char **__restrict, size_t, mbstate_t *__restrict);
 size_t wcsrtombs (char *__restrict, const wchar_t **__restrict, size_t, mbstate_t *__restrict);
 
+// waiting for softfloat
 float wcstof (const wchar_t *__restrict, wchar_t **__restrict);
 double wcstod (const wchar_t *__restrict, wchar_t **__restrict);
 long double wcstold (const wchar_t *__restrict, wchar_t **__restrict);
+//
 
 long wcstol (const wchar_t *__restrict, wchar_t **__restrict, int);
 unsigned long wcstoul (const wchar_t *__restrict, wchar_t **__restrict, int);

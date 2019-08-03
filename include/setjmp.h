@@ -7,8 +7,7 @@ extern "C" {
 
 #include <features.h>
 
-#include <bits/setjmp.h>
-
+typedef unsigned long __jmp_buf[6];
 typedef struct __jmp_buf_tag {
 	__jmp_buf __jb;
 	unsigned long __fl;
@@ -33,6 +32,7 @@ int setjmp (jmp_buf);
 _Noreturn void longjmp (jmp_buf, int);
 
 #define setjmp setjmp
+#define longjmp longjmp
 
 #ifdef __cplusplus
 }
