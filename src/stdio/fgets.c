@@ -45,4 +45,11 @@ char *fgets(char *restrict s, int n, FILE *restrict f)
 	return s;
 }
 
+#ifdef __APPLE__
+char *fgets_unlocked(char *restrict s, int n, FILE *restrict f)
+{
+	return fgets(s,n,f);
+}
+#else
 weak_alias(fgets, fgets_unlocked);
+#endif

@@ -13,4 +13,11 @@ int fileno(FILE *f)
 	return fd;
 }
 
+#ifdef __APPLE__
+int fileno_unlocked(FILE *f)
+{
+	return fileno(f);
+}
+#else
 weak_alias(fileno, fileno_unlocked);
+#endif

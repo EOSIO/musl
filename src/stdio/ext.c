@@ -54,4 +54,11 @@ int __fpurge(FILE *f)
 	return 0;
 }
 
+#ifdef __APPLE__
+int fpurge(FILE *f)
+{
+	return __fpurge(f);
+}
+#else
 weak_alias(__fpurge, fpurge);
+#endif

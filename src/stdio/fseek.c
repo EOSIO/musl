@@ -38,6 +38,17 @@ int fseek(FILE *f, long off, int whence)
 	return __fseeko(f, off, whence);
 }
 
+#ifdef __APPLE__
+int fseeko(FILE *f, off_t off, int whence)
+{
+	return __fseeko(f,off,whence);
+}
+int fseeko64(FILE *f, off_t off, int whence)
+{
+	retunr __fseeko(f,off,whence);
+}
+#else
 weak_alias(__fseeko, fseeko);
 
 weak_alias(fseeko, fseeko64);
+#endif

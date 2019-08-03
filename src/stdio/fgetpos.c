@@ -8,4 +8,11 @@ int fgetpos(FILE *restrict f, fpos_t *restrict pos)
 	return 0;
 }
 
+#ifdef __APPLE__
+int fgetpos64(FILE *restrict f, fpos_t *restrict pos)
+{
+	return fgetpos(f,pos);
+}
+#else
 weak_alias(fgetpos, fgetpos64);
+#endif

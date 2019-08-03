@@ -78,4 +78,11 @@ ssize_t getdelim(char **restrict s, size_t *restrict n, int delim, FILE *restric
 	return i;
 }
 
+#ifdef __APPLE__
+ssize_t __getdelim(char **restrict s, size_t *restrict n, int delim, FILE *restrict f)
+{
+	return getdelim(s,n,delim,f);
+}
+#else
 weak_alias(getdelim, __getdelim);
+#endif

@@ -1,8 +1,9 @@
 #include "stdio_impl.h"
-#include <sys/uio.h>
+//#include <sys/uio.h>
 
 size_t __stdio_write(FILE *f, const unsigned char *buf, size_t len)
 {
+	/*
 	struct iovec iovs[2] = {
 		{ .iov_base = f->wbase, .iov_len = f->wpos-f->wbase },
 		{ .iov_base = (void *)buf, .iov_len = len }
@@ -31,4 +32,8 @@ size_t __stdio_write(FILE *f, const unsigned char *buf, size_t len)
 		iov[0].iov_base = (char *)iov[0].iov_base + cnt;
 		iov[0].iov_len -= cnt;
 	}
+	*/
+	prints_l((char*)(f->wbase), f->wpos-f->wbase);
+	prints_l((void*)buf, len);
+	return f->wpos-f->wbase + len;
 }

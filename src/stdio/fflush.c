@@ -2,8 +2,13 @@
 
 /* stdout.c will override this if linked */
 static FILE *volatile dummy = 0;
+#ifdef __APPLE__
+static FILE *volatile __stdout_used = 0;
+static FILE *volatile __stderr_used = 0;
+#else
 weak_alias(dummy, __stdout_used);
 weak_alias(dummy, __stderr_used);
+#endif
 
 int fflush(FILE *f)
 {
@@ -44,4 +49,11 @@ int fflush(FILE *f)
 	return 0;
 }
 
+#ifdef __APPLE__
+int fflush_unlocked(FILE *f)
+{
+	return fflush(f);
+}
+#else
 weak_alias(fflush, fflush_unlocked);
+#endif
