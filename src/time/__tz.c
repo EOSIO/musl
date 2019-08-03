@@ -3,7 +3,7 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/mman.h>
+//#include <sys/mman.h>
 #include "libc.h"
 #include "lock.h"
 

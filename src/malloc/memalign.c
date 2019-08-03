@@ -12,7 +12,7 @@ void *__memalign(size_t align, size_t len)
 		return 0;
 	}
 
-	if (len > SIZE_MAX - align || __malloc_replaced) {
+	if (len > SIZE_MAX - align) { // || __malloc_replaced) {
 		errno = ENOMEM;
 		return 0;
 	}
@@ -47,7 +47,8 @@ void *__memalign(size_t align, size_t len)
 	n->psize = c->csize = C_INUSE | (new-mem);
 	n->csize = t->psize -= new-mem;
 
-	__bin_chunk(c);
+	//__bin_chunk(c);
+	free(CHUNK_TO_MEM(c));
 	return new;
 }
 

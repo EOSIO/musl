@@ -1,11 +1,11 @@
 #ifndef MALLOC_IMPL_H
 #define MALLOC_IMPL_H
 
-#include <sys/mman.h>
+//#include <sys/mman.h>
 
-hidden void *__expand_heap(size_t *);
+//hidden void *__expand_heap(size_t *);
 
-hidden void __malloc_donate(char *, char *);
+//hidden void __malloc_donate(char *, char *);
 
 hidden void *__memalign(size_t, size_t);
 
@@ -14,11 +14,13 @@ struct chunk {
 	struct chunk *next, *prev;
 };
 
+/*
 struct bin {
 	volatile int lock[2];
 	struct chunk *head;
 	struct chunk *tail;
 };
+*/
 
 #define SIZE_ALIGN (4*sizeof(size_t))
 #define SIZE_MASK (-SIZE_ALIGN)
@@ -39,8 +41,8 @@ struct bin {
 
 #define IS_MMAPPED(c) !((c)->csize & (C_INUSE))
 
-hidden void __bin_chunk(struct chunk *);
+//hidden void __bin_chunk(struct chunk *);
 
-hidden extern int __malloc_replaced;
+//hidden extern int __malloc_replaced;
 
 #endif

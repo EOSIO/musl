@@ -4,6 +4,7 @@
  *  @copyright defined in eos/LICENSE.txt
  */
 
+#include <features.h>
 #include <stdint.h>
 
 #ifdef __cplusplus

@@ -19,7 +19,7 @@ struct pthread {
 	/*
 	struct pthread *self;
 	uintptr_t *dtv;
-	struct pthread *prev, *next; /* non-ABI */
+	struct pthread *prev, *next; // non-ABI
 	uintptr_t sysinfo;
 	uintptr_t canary, canary2;
 	*/
