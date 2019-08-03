@@ -51,4 +51,11 @@ void *__memalign(size_t align, size_t len)
 	return new;
 }
 
+#ifdef __APPLE__
+void *memalign(size_t align, size_t len)
+{
+	return __memalign(align,len);
+}
+#else
 weak_alias(__memalign, memalign);
+#endif
