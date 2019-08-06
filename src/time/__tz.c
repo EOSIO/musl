@@ -117,6 +117,7 @@ static size_t zi_dotprod(const unsigned char *z, const unsigned char *v, size_t 
 
 static void do_tzset()
 {
+   /*
 	char buf[NAME_MAX+25], *pathname=buf+24;
 	const char *try, *s, *p;
 	const unsigned char *map = 0;
@@ -134,9 +135,9 @@ static void do_tzset()
 
 	if (zi) __munmap((void *)zi, map_size);
 
-	/* Cache the old value of TZ to check if it has changed. Avoid
-	 * free so as not to pull it into static programs. Growth
-	 * strategy makes it so free would have minimal benefit anyway. */
+	// Cache the old value of TZ to check if it has changed. Avoid
+	// free so as not to pull it into static programs. Growth
+	// strategy makes it so free would have minimal benefit anyway.
 	i = strlen(s);
 	if (i > PATH_MAX+1) s = __utc, i = 3;
 	if (i >= old_tz_size) {
@@ -147,9 +148,9 @@ static void do_tzset()
 	}
 	if (old_tz) memcpy(old_tz, s, i+1);
 
-	/* Non-suid can use an absolute tzfile pathname or a relative
-	 * pathame beginning with "."; in secure mode, only the
-	 * standard path will be searched. */
+	// Non-suid can use an absolute tzfile pathname or a relative
+	// pathame beginning with "."; in secure mode, only the
+	// standard path will be searched.
 	if (*s == ':' || ((p=strchr(s, '/')) && !memchr(s, ',', p-s))) {
 		if (*s == ':') s++;
 		if (*s == '/' || *s == '.') {
@@ -236,6 +237,7 @@ static void do_tzset()
 
 	if (*s == ',') s++, getrule(&s, r0);
 	if (*s == ',') s++, getrule(&s, r1);
+   */
 }
 
 /* Search zoneinfo rules to find the one that applies to the given time,
