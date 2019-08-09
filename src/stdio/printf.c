@@ -35,6 +35,7 @@
 #include <stdarg.h>
 #include <stdint.h>
 #include <stdio.h>
+#include "stdio_impl.h"
 
 
 // ntoa conversion buffer size, this must be big enough to hold
@@ -100,8 +101,6 @@ static inline void _out_null(char character, void* buffer, size_t idx, size_t ma
   (void)character; (void)buffer; (void)idx; (void)maxlen;
 }
 
-__attribute__((eosio_wasm_import))
-extern void prints_l(const char*, size_t);
 void _putchar(char c) {
    prints_l(&c, 1);
 }

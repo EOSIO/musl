@@ -111,4 +111,7 @@ hidden void __getopt_msg(const char *, const char *, const char *, size_t);
 hidden FILE *__fopen_rb_ca(const char *, FILE *, unsigned char *, size_t);
 hidden int __fclose_ca(FILE *);
 
+__attribute__((eosio_wasm_import))
+hidden void prints_l(const char*, size_t);
+
 #endif
