@@ -36,7 +36,7 @@ int vswscanf(const wchar_t *restrict s, const wchar_t *restrict fmt, va_list ap)
 }
 
 #ifdef __APPLE__
-int vswscanf(const wchar_t *restrict s, const wchar_t *restrict fmt, va_list ap)
+int __iso99_vswscanf(const wchar_t *restrict s, const wchar_t *restrict fmt, va_list ap)
 {
 	return vswscanf(s,fmt,ap);
 }

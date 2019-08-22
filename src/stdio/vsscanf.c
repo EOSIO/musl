@@ -15,7 +15,7 @@ int vsscanf(const char *restrict s, const char *restrict fmt, va_list ap)
 }
 
 #ifdef __APPLE__
-itn __isoc99_vsscanf(const char *restrict s, const char *restrict fmt, va_list ap)
+int __isoc99_vsscanf(const char *restrict s, const char *restrict fmt, va_list ap)
 {
 	return vsscanf(s,fmt,ap);
 }

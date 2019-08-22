@@ -29,7 +29,7 @@ int fputws(const wchar_t *restrict ws, FILE *restrict f)
 #ifdef __APPLE__
 int fputws_unlocked(const wchar_t *restrict ws, FILE *restrict f)
 {
-	return fputws(wf,f);
+	return fputws(ws,f);
 }
 #else
 weak_alias(fputws, fputws_unlocked);

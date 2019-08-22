@@ -25,4 +25,11 @@ char *__asctime_r(const struct tm *restrict tm, char *restrict buf)
 	return buf;
 }
 
+#ifdef __APPLE__
+char * weak asctime_r(const struct tm *restrict tm, char *restrict buf)
+{
+	return __asctime_r(tm, buf);
+}
+#else
 weak_alias(__asctime_r, asctime_r);
+#endif

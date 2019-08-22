@@ -2,9 +2,9 @@
 
 static FILE *volatile dummy_file = 0;
 #ifdef __APPLE__
-static FILE *volatile __stdin_used = 0;
-static FILE *volatile __stdout_used = 0;
-static FILE *volatile __stderr_used = 0;
+FILE *volatile weak __stdin_used = 0;
+FILE *volatile weak __stdout_used = 0;
+FILE *volatile weak __stderr_used = 0;
 #else
 weak_alias(dummy_file, __stdin_used);
 weak_alias(dummy_file, __stdout_used);
@@ -29,7 +29,7 @@ void __stdio_exit(void)
 }
 
 #ifdef __APPLE__
-void __stdio_exit_needed(void)
+void weak __stdio_exit_needed(void)
 {
 	return __stdio_exit();
 }

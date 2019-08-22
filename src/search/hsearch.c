@@ -116,7 +116,7 @@ static int __hcreate_r(size_t nel, struct hsearch_data *htab)
 }
 
 #ifdef __APPLE__
-static void hcreate_r(size_t nel, struct hsearch_data *htab)
+int weak hcreate_r(size_t nel, struct hsearch_data *htab)
 {
 	return __hcreate_r(nel,htab);
 }
@@ -132,7 +132,7 @@ static void __hdestroy_r(struct hsearch_data *htab)
 }
 
 #ifdef __APPLE__
-static void hdestroy_r(struct hsearch_data *htab)
+void weak hdestroy_r(struct hsearch_data *htab)
 {
 	return __hdestroy_r(htab);
 }
@@ -168,7 +168,7 @@ static int __hsearch_r(ENTRY item, ACTION action, ENTRY **retval, struct hsearch
 }
 
 #ifdef __APPLE__
-static int hsearch_r(ENTRY item, ACTION action, ENTRY **retval, struct hsearch_data *htab)
+int weak hsearch_r(ENTRY item, ACTION action, ENTRY **retval, struct hsearch_data *htab)
 {
 	return __hsearch_r(item,action,retval,htab);
 }

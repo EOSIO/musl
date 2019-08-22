@@ -3,7 +3,7 @@
 
 static void dummy(FILE *f) { }
 #ifdef __APPLE__
-static void __unlist_locked_file(FILE *f) { }
+void weak __unlist_locked_file(FILE *f) { }
 #else
 weak_alias(dummy, __unlist_locked_file);
 #endif

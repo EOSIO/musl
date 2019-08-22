@@ -7,7 +7,7 @@ void clearerr(FILE *f)
 	FUNLOCK(f);
 }
 
-#ifdef __APPLE_
+#ifdef __APPLE__
 void clearerr_unlocked(FILE *f)
 {
 	return clearerr(f);

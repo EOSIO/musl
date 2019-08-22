@@ -45,7 +45,7 @@ int fseeko(FILE *f, off_t off, int whence)
 }
 int fseeko64(FILE *f, off_t off, int whence)
 {
-	retunr __fseeko(f,off,whence);
+	return __fseeko(f,off,whence);
 }
 #else
 weak_alias(__fseeko, fseeko);

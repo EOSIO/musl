@@ -5,7 +5,8 @@
 
 static void dummy(char *old, char *new) {}
 #ifdef __APPLE__
-static void __env_rm_add(char *old, char *new) {}
+void weak __env_rm_add(char *old, char *new) {}
+#else
 weak_alias(dummy, __env_rm_add);
 #endif
 

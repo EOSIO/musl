@@ -57,7 +57,7 @@ unsigned long __strtoul_internal(const char *restrict s, char **restrict p, int 
 {
 	return strtoul(s,p,base);
 }
-long long strtoll(const char *restrict s, char **restrict p, int base)
+long long __strtoll_internal(const char *restrict s, char **restrict p, int base)
 {
 	return strtoll(s,p,base);
 }

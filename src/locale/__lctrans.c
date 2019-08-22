@@ -7,7 +7,7 @@ static const char *dummy(const char *msg, const struct __locale_map *lm)
 }
 
 #ifdef __APPLE__
-static const char *__lctrans_impl(const char *msg, const struct __locale_map *lm)
+const char * weak __lctrans_impl(const char *msg, const struct __locale_map *lm)
 {
 	return msg;
 }

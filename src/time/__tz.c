@@ -11,9 +11,15 @@ long  __timezone = 0;
 int   __daylight = 0;
 char *__tzname[2] = { 0, 0 };
 
+#ifdef __APPLE__
+long  weak timezone = 0;
+int   weak daylight = 0;
+char* weak tzname[2] = { 0, 0 };
+#else
 weak_alias(__timezone, timezone);
 weak_alias(__daylight, daylight);
 weak_alias(__tzname, tzname);
+#endif
 
 static char std_name[TZNAME_MAX+1];
 static char dst_name[TZNAME_MAX+1];
@@ -409,7 +415,14 @@ static void __tzset()
 	UNLOCK(lock);
 }
 
+#ifdef __APPLE__
+void weak tzset()
+{
+	__tzset();
+}
+#else
 weak_alias(__tzset, tzset);
+#endif
 
 const char *__tm_to_tzname(const struct tm *tm)
 {

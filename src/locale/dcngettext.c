@@ -113,7 +113,7 @@ static char *dummy_gettextdomain()
 }
 
 #ifdef __APPLE__
-static char *__gettextdomain() {
+char * weak __gettextdomain() {
 	return "messages";
 }
 #else
