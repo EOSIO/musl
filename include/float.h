@@ -5,8 +5,8 @@
 extern "C" {
 #endif
 
-int __flt_rounds(void);
-#define FLT_ROUNDS (__flt_rounds())
+/* WASM doesn't support changing the rounding mode dynamically */
+#define FLT_ROUNDS 1
 
 #define FLT_RADIX 2
 
