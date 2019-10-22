@@ -739,3 +739,10 @@ int fctprintf(void (*out)(char character, void* arg), void* arg, const char* for
   va_end(va);
   return ret;
 }
+
+
+int vfprintf(FILE *restrict f, const char *restrict fmt, va_list ap)
+{
+  char buffer[1];
+  return _vsnprintf(_out_char, buffer, (size_t)-1, fmt, ap);
+}

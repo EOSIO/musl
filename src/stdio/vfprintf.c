@@ -13,6 +13,8 @@
 
 /* Some useful macros */
 
+#if 0
+
 #define MAX(a,b) ((a)>(b) ? (a) : (b))
 #define MIN(a,b) ((a)<(b) ? (a) : (b))
 
@@ -694,3 +696,5 @@ int vfprintf(FILE *restrict f, const char *restrict fmt, va_list ap)
 	va_end(ap2);
 	return ret;
 }
+
+#endif
