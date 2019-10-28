@@ -11,7 +11,7 @@
 #endif
 
 
-typedef size_t ssize_t;
+typedef ptrdiff_t ssize_t;
 
 typedef __builtin_va_list va_list;
 typedef __builtin_va_list __isoc_va_list;
