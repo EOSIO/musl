@@ -63,9 +63,9 @@ static long long scanexp(FILE *f, int pok)
 }
 
 
-static long double decfloat(FILE *f, int c, int bits, int emin, int sign, int pok)
+static long double decfloat(uint32_t *x, FILE *f, int c, int bits, int emin, int sign, int pok)
 {
-	uint32_t x[KMAX];
+	//uint32_t x[KMAX]; // avoid stack underflow
 	static const uint32_t th[] = { LD_B1B_MAX };
 	int i, j, k, a, z;
 	long long lrp=0, dc=0;
@@ -506,5 +506,8 @@ long double __floatscan(FILE *f, int prec, int pok)
 		c = '0';
 	}
 
-	return decfloat(f, c, bits, emin, sign, pok);
+	uint32_t *x = (uint32_t *)malloc(sizeof(uint32_t) * KMAX);
+	long double r = decfloat(x, f, c, bits, emin, sign, pok);
+	free(x);
+	return r;
 }
