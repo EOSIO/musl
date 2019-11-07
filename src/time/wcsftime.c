@@ -68,4 +68,8 @@ size_t wcsftime(wchar_t *restrict wcs, size_t n, const wchar_t *restrict f, cons
 	return __wcsftime_l(wcs, n, f, tm, CURRENT_LOCALE);
 }
 
+#ifdef __APPLE__
+size_t wcsftime_l(wchar_t *restrict s, size_t n, const wchar_t *restrict f, const struct tm *restrict tm, locale_t loc) { return __wcsftime_l(s,n,f,tm,loc); }
+#else
 weak_alias(__wcsftime_l, wcsftime_l);
+#endif

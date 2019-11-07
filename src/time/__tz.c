@@ -9,9 +9,11 @@ long  __timezone = 0;
 int   __daylight = 0;
 char *__tzname[2] = { 0, 0 };
 
+#ifndef __APPLE__
 weak_alias(__timezone, timezone);
 weak_alias(__daylight, daylight);
 weak_alias(__tzname, tzname);
+#endif
 
 static char std_name[TZNAME_MAX+1];
 static char dst_name[TZNAME_MAX+1];
@@ -20,7 +22,7 @@ const char __utc[] = "UTC";
 static int dst_off;
 static int r0[5], r1[5];
 
-static const unsigned char *zi, *trans, *index, *types, *abbrevs, *abbrevs_end;
+static const unsigned char *zi, *trans, *_tz_index, *types, *abbrevs, *abbrevs_end;
 static size_t map_size;
 
 static char old_tz_buf[32];
@@ -122,7 +124,7 @@ static size_t scan_trans(long long t, int local, size_t *alt)
 	uint64_t x;
 	int off = 0;
 
-	size_t a = 0, n = (index-trans)>>scale, m;
+	size_t a = 0, n = (_tz_index-trans)>>scale, m;
 
 	if (!n) {
 		if (alt) *alt = 0;
@@ -135,7 +137,7 @@ static size_t scan_trans(long long t, int local, size_t *alt)
 		x = zi_read32(trans + (m<<scale));
 		if (scale == 3) x = x<<32 | zi_read32(trans + (m<<scale) + 4);
 		else x = (int32_t)x;
-		if (local) off = (int32_t)zi_read32(types + 6 * index[m-1]);
+		if (local) off = (int32_t)zi_read32(types + 6 * _tz_index[m-1]);
 		if (t - off < (int64_t)x) {
 			n /= 2;
 		} else {
@@ -146,13 +148,13 @@ static size_t scan_trans(long long t, int local, size_t *alt)
 
 	/* First and last entry are special. First means to use lowest-index
 	 * non-DST type. Last means to apply POSIX-style rule if available. */
-	n = (index-trans)>>scale;
+	n = (_tz_index-trans)>>scale;
 	if (a == n-1) return -1;
 	if (a == 0) {
 		x = zi_read32(trans + (a<<scale));
 		if (scale == 3) x = x<<32 | zi_read32(trans + (a<<scale) + 4);
 		else x = (int32_t)x;
-		if (local) off = (int32_t)zi_read32(types + 6 * index[a-1]);
+		if (local) off = (int32_t)zi_read32(types + 6 * _tz_index[a-1]);
 		if (t - off < (int64_t)x) {
 			for (a=0; a<(abbrevs-types)/6; a++) {
 				if (types[6*a+4] != types[4]) break;
@@ -170,15 +172,15 @@ static size_t scan_trans(long long t, int local, size_t *alt)
 
 	/* Try to find a neighboring opposite-DST-status rule. */
 	if (alt) {
-		if (a && types[6*index[a-1]+4] != types[6*index[a]+4])
-			*alt = index[a-1];
-		else if (a+1<n && types[6*index[a+1]+4] != types[6*index[a]+4])
-			*alt = index[a+1];
+		if (a && types[6*_tz_index[a-1]+4] != types[6*_tz_index[a]+4])
+			*alt = _tz_index[a-1];
+		else if (a+1<n && types[6*_tz_index[a+1]+4] != types[6*_tz_index[a]+4])
+			*alt = _tz_index[a+1];
 		else
-			*alt = index[a];
+			*alt = _tz_index[a];
 	}
 
-	return index[a];
+	return _tz_index[a];
 }
 
 static int days_in_month(int m, int is_leap)
