@@ -49,6 +49,7 @@ struct tm {
 	const char *__tm_zone;
 };
 
+time_t time (time_t *);
 double difftime (time_t, time_t);
 size_t strftime (char *__restrict, size_t, const char *__restrict, const struct tm *__restrict);
 struct tm *gmtime (const time_t *);
