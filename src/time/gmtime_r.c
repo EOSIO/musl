@@ -16,4 +16,8 @@ struct tm *__gmtime_r(const time_t *restrict t, struct tm *restrict tm)
 	return tm;
 }
 
+#ifdef __APPLE__
+struct tm *gmtime_r(const time_t *restrict t, struct tm *restrict tm) { return __gmtime_r(t,tm); }
+#else
 weak_alias(__gmtime_r, gmtime_r);
+#endif

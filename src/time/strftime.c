@@ -275,4 +275,8 @@ size_t strftime(char *restrict s, size_t n, const char *restrict f, const struct
 	return __strftime_l(s, n, f, tm, CURRENT_LOCALE);
 }
 
+#ifdef __APPLE__
+size_t strftime_l(char *restrict s, size_t n, const char *restrict f, const struct tm *restrict t, locale_t l) { return __strftime_l(s,n,f,t,l); }
+#else
 weak_alias(__strftime_l, strftime_l);
+#endif
