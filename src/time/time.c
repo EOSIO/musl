@@ -2,7 +2,7 @@
 //#include "syscall.h"
 
 __attribute__((eosio_wasm_import))
-extern uint64_t current_time();
+extern uint64_t current_time(void);
 
 time_t time(time_t *t)
 {

@@ -60,6 +60,10 @@ extern FILE *const stderr;
 #define stdout (stdout)
 #define stderr (stderr)
 
+FILE *fopen(const char *__restrict, const char *__restrict);
+FILE *freopen(const char *__restrict, const char *__restrict, FILE *__restrict);
+int fclose(FILE *);
+
 int feof(FILE *);
 int ferror(FILE *);
 int fflush(FILE *);
