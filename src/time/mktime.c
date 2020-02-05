@@ -3,9 +3,5 @@
 
 time_t mktime(struct tm *tm)
 {
-   struct tm new;
-   long opp;
-   long long t = __tm_to_secs(tm);
-
-   return t;
+   return __tm_to_secs(tm);
 }
