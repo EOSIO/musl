@@ -54,6 +54,7 @@ time_t time (time_t *);
 double difftime (time_t, time_t);
 size_t strftime (char *__restrict, size_t, const char *__restrict, const struct tm *__restrict);
 struct tm *gmtime (const time_t *);
+time_t mktime (struct tm *);
 char *asctime (const struct tm *);
 
 #define CLOCKS_PER_SEC 1000000L
