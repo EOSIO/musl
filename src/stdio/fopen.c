@@ -2,7 +2,7 @@
 #include <string.h>
 #include <errno.h>
 
-__attribute__((eosio_wasm_import)) int open_file(const char* pathname, const char* pathname_end, const char* mode, const char* mode_end);
+__attribute__((eosio_wasm_import)) int open_file(const char* pathname, uint32_t pathname_size, const char* mode, uint32_t mode_size);
 __attribute__((eosio_wasm_import)) void close_file(int fd);
 
 FILE *fopen(const char *restrict filename, const char *restrict mode)
@@ -20,7 +20,7 @@ FILE *fopen(const char *restrict filename, const char *restrict mode)
 	/* Compute the flags to pass to open() */
 	//flags = __fmodeflags(mode);
 
-	fd = open_file(filename, filename+strlen(filename), mode, mode+strlen(mode));
+	fd = open_file(filename, strlen(filename), mode, strlen(mode));
 	if (fd < 0) return 0;
 
 	f = __fdopen(fd, mode);
