@@ -7,7 +7,7 @@
 #define _Addr long long 
 #define __INTPTR_WIDTH__ 64
 #else
-#define _Addr int
+#define _Addr long
 #endif
 
 

@@ -32,14 +32,8 @@ typedef uint16_t        uint_fast16_t;
 typedef uint32_t        uint_fast32_t;
 typedef uint64_t        uint_fast64_t;
 
-// /usr/local/wasm/lib/clang/4.0.1/include/stdint.h
-#define __stdint_join3(a,b,c) a ## b ## c
-
-#define  __intn_t(n) __stdint_join3( int, n, _t)
-typedef  __intn_t(__INTPTR_WIDTH__)  intptr_t;
-
-#define __uintn_t(n) __stdint_join3(uint, n, _t)
-typedef __uintn_t(__INTPTR_WIDTH__) uintptr_t;
+typedef long                 intptr_t;
+typedef unsigned long       uintptr_t;
 
 typedef __INTMAX_TYPE__  intmax_t;
 typedef __UINTMAX_TYPE__ uintmax_t;
