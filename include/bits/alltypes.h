@@ -40,3 +40,12 @@ struct timespec { time_t tv_sec; long tv_nsec; };
 
 typedef float float_t;
 typedef double double_t;
+
+#if !defined(__cplusplus)
+typedef struct { _Alignas(8) long long __ll; long double __ld; } max_align_t;
+#elif defined(__GNUC__)
+typedef struct { __attribute__((__aligned__(8))) long long __ll; long double __ld; } max_align_t;
+#else
+typedef struct { alignas(8) long long __ll; long double __ld; } max_align_t;
+#endif
+

@@ -213,8 +213,8 @@ float       floorf(float);
 long double floorl(long double);
 
 double      fma(double, double, double);
-//float       fmaf(float, float, float);
-//long double fmal(long double, long double, long double);
+float       fmaf(float, float, float);
+long double fmal(long double, long double, long double);
 
 double      fmax(double, double);
 float       fmaxf(float, float);

@@ -30,7 +30,9 @@ long double strtold (const char *__restrict, char **__restrict);
 long strtol (const char *__restrict, char **__restrict, int);
 unsigned long strtoul (const char *__restrict, char **__restrict, int);
 long long strtoll (const char *__restrict, char **__restrict, int);
+long long strtoll_l(const char *__restrict, char **__restrict, size_t, locale_t);
 unsigned long long strtoull (const char *__restrict, char **__restrict, int);
+unsigned long long strtoull_l(const char *__restrict, char **__restrict, size_t, locale_t);
 
 /*
 int rand (void);
