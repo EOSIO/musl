@@ -23,17 +23,9 @@ unsigned long long strtoull(const char *restrict s, char **restrict p, int base)
 	return strtox(s, p, base, ULLONG_MAX);
 }
 
-unsigned long long strtoull_l(const char *nptr, char **endptr, size_t base, locale_t) {
-	return strtoull(nptr, endptr, base);
-}
-
 long long strtoll(const char *restrict s, char **restrict p, int base)
 {
 	return strtox(s, p, base, LLONG_MIN);
-}
-
-long long strtoll_l(const char *nptr, char **endptr, size_t base, locale_t) {
-	return strtoll(nptr, endptr, base);
 }
 
 unsigned long strtoul(const char *restrict s, char **restrict p, int base)
