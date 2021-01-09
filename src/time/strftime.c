@@ -214,62 +214,62 @@ recu_strftime:
 
 size_t __strftime_l(char *restrict s, size_t n, const char *restrict f, const struct tm *restrict tm, locale_t loc)
 {
-//	size_t l, k;
-//	char buf[100];
-//	char *p;
-//	const char *t;
-//	int pad, plus;
-//	unsigned long width;
-//	for (l=0; l<n; f++) {
-//		if (!*f) {
-//			s[l] = 0;
-//			return l;
-//		}
-//		if (*f != '%') {
-//			s[l++] = *f;
-//			continue;
-//		}
-//		f++;
-//		pad = 0;
-//		if (*f == '-' || *f == '_' || *f == '0') pad = *f++;
-//		if ((plus = (*f == '+'))) f++;
-//		width = strtoul(f, &p, 10);
-//		if (*p == 'C' || *p == 'F' || *p == 'G' || *p == 'Y') {
-//			if (!width && p!=f) width = 1;
-//		} else {
-//			width = 0;
-//		}
-//		f = p;
-//		if (*f == 'E' || *f == 'O') f++;
-//		t = __strftime_fmt_1(&buf, &k, *f, tm, loc, pad);
-//		if (!t) break;
-//		if (width) {
-//			/* Trim off any sign and leading zeros, then
-//			 * count remaining digits to determine behavior
-//			 * for the + flag. */
-//			if (*t=='+' || *t=='-') t++, k--;
-//			for (; *t=='0' && t[1]-'0'<10U; t++, k--);
-//			if (width < k) width = k;
-//			size_t d;
-//			for (d=0; t[d]-'0'<10U; d++);
-//			if (tm->tm_year < -1900) {
-//				s[l++] = '-';
-//				width--;
-//			} else if (plus && d+(width-k) >= (*p=='C'?3:5)) {
-//				s[l++] = '+';
-//				width--;
-//			}
-//			for (; width > k && l < n; width--)
-//				s[l++] = '0';
-//		}
-//		if (k > n-l) k = n-l;
-//		memcpy(s+l, t, k);
-//		l += k;
-//	}
-//	if (n) {
-//		if (l==n) l=n-1;
-//		s[l] = 0;
-//	}
+	size_t l, k;
+	char buf[100];
+	char *p;
+	const char *t;
+	int pad, plus;
+	unsigned long width;
+	for (l=0; l<n; f++) {
+		if (!*f) {
+			s[l] = 0;
+			return l;
+		}
+		if (*f != '%') {
+			s[l++] = *f;
+			continue;
+		}
+		f++;
+		pad = 0;
+		if (*f == '-' || *f == '_' || *f == '0') pad = *f++;
+		if ((plus = (*f == '+'))) f++;
+		width = strtoul(f, &p, 10);
+		if (*p == 'C' || *p == 'F' || *p == 'G' || *p == 'Y') {
+			if (!width && p!=f) width = 1;
+		} else {
+			width = 0;
+		}
+		f = p;
+		if (*f == 'E' || *f == 'O') f++;
+		t = __strftime_fmt_1(&buf, &k, *f, tm, loc, pad);
+		if (!t) break;
+		if (width) {
+			/* Trim off any sign and leading zeros, then
+			 * count remaining digits to determine behavior
+			 * for the + flag. */
+			if (*t=='+' || *t=='-') t++, k--;
+			for (; *t=='0' && t[1]-'0'<10U; t++, k--);
+			if (width < k) width = k;
+			size_t d;
+			for (d=0; t[d]-'0'<10U; d++);
+			if (tm->tm_year < -1900) {
+				s[l++] = '-';
+				width--;
+			} else if (plus && d+(width-k) >= (*p=='C'?3:5)) {
+				s[l++] = '+';
+				width--;
+			}
+			for (; width > k && l < n; width--)
+				s[l++] = '0';
+		}
+		if (k > n-l) k = n-l;
+		memcpy(s+l, t, k);
+		l += k;
+	}
+	if (n) {
+		if (l==n) l=n-1;
+		s[l] = 0;
+	}
 	return 0;
 }
 
