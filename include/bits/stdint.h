@@ -1,6 +1,8 @@
 #pragma once
 
+#ifndef NO_BUILTIN_UINT128
 typedef unsigned __int128    uint128_t;
+#endif
 
 typedef unsigned long long   uint64_t;
 typedef unsigned int         uint32_t;
