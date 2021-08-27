@@ -123,6 +123,7 @@ void setbuf(FILE *__restrict, char *__restrict);
  || defined(_BSD_SOURCE)
 FILE *fmemopen(void *__restrict, size_t, const char *__restrict);
 FILE *open_memstream(char **, size_t *);
+FILE *fdopen(int, const char *);
 int fileno(FILE *);
 int fseeko(FILE *, off_t, int);
 off_t ftello(FILE *);
