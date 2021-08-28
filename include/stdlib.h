@@ -86,7 +86,7 @@ size_t __ctype_get_mb_cur_max(void);
 
 #if defined(_POSIX_SOURCE) || defined(_POSIX_C_SOURCE) \
  || defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) \
- || defined(_BSD_SOURCE) | defined(__APPLE__)
+ || defined(_BSD_SOURCE) || defined(__APPLE__)
 
 /*
 #define WNOHANG    1
