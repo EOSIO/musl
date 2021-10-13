@@ -49,6 +49,7 @@ struct tm {
 	const char *__tm_zone;
 };
 
+clock_t clock (void);
 time_t time (time_t *);
 double difftime (time_t, time_t);
 size_t strftime (char *__restrict, size_t, const char *__restrict, const struct tm *__restrict);
@@ -68,6 +69,10 @@ size_t strftime_l (char *  __restrict, size_t, const char *  __restrict, const s
 
 struct tm *gmtime_r (const time_t *__restrict, struct tm *__restrict);
 char *asctime_r (const struct tm *__restrict, char *__restrict);
+
+#define CLOCK_REALTIME           0
+#define CLOCK_MONOTONIC          1
+__attribute__((eosio_wasm_import)) int clock_gettime (clockid_t, struct timespec *);
 
 #endif
 

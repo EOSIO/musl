@@ -60,6 +60,10 @@ extern FILE *const stderr;
 #define stdout (stdout)
 #define stderr (stderr)
 
+FILE *fopen(const char *__restrict, const char *__restrict);
+FILE *freopen(const char *__restrict, const char *__restrict, FILE *__restrict);
+int fclose(FILE *);
+
 int feof(FILE *);
 int ferror(FILE *);
 int fflush(FILE *);
@@ -119,6 +123,7 @@ void setbuf(FILE *__restrict, char *__restrict);
  || defined(_BSD_SOURCE)
 FILE *fmemopen(void *__restrict, size_t, const char *__restrict);
 FILE *open_memstream(char **, size_t *);
+FILE *fdopen(int, const char *);
 int fileno(FILE *);
 int fseeko(FILE *, off_t, int);
 off_t ftello(FILE *);
