@@ -8,7 +8,7 @@
 //#include <sys/mman.h>
 #include "libc.h"
 //#include "syscall.h"
-//#include "atomic.h"
+#include "atomic.h"
 //#include "futex.h"
 
 #define pthread __pthread

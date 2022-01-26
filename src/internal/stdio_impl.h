@@ -113,5 +113,12 @@ hidden int __fclose_ca(FILE *);
 
 __attribute__((import_name("prints_l")))
 hidden weak void prints_l(const char*, size_t);
-
+__attribute__((import_name("read_file")))
+hidden weak int read_file(int fd, char* buf,  size_t len);
+__attribute__((import_name("write_file")))
+hidden weak int write_file(int fd, char* begin, uint32_t size);
+__attribute__((import_name("isatty")))
+hidden weak int isatty(int);
+__attribute__((import_name("open_file")))
+hidden weak int open_file(const char* pathname, const char* pathname_end, const char* mode, uint32_t mode_size);
 #endif

@@ -7,10 +7,17 @@
 #include <features.h>
 #include <stdint.h>
 
+#define STDIN_FILENO  0
+#define STDOUT_FILENO 1
+#define STDERR_FILENO 2
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+   __attribute__((import_name("isatty"))) 
+   __attribute__((__visibility__("hidden")))
+   __attribute__((__weak__))
+   int isatty(int);
    /**
     * Allocate page(s) of memory to accommodate the
     * requested number of bytes.

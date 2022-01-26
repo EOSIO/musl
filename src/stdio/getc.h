@@ -19,5 +19,8 @@ static inline int do_getc(FILE *f)
 	//if (l < 0 || l && (l & ~MAYBE_WAITERS) == __pthread_self()->tid)
 	if (l < 0 || !__lockfile(f))
 		return getc_unlocked(f);
-	return locking_getc(f);
+   // return locking_getc(f);
+   int c = getc_unlocked(f);
+	__unlockfile(f);
+	return c;
 }

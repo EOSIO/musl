@@ -25,6 +25,7 @@ typedef int regoff_t; //questionable (_Addr in alltypes.h.in)
 struct __locale_struct;
 
 typedef struct __locale_struct * locale_t;
+typedef struct __sigset_t { unsigned long __bits[128/sizeof(long)]; } sigset_t;
 
 typedef struct _IO_FILE FILE;
 
@@ -34,6 +35,9 @@ typedef unsigned long wctype_t;
 
 typedef long time_t;
 typedef long suseconds_t;
+
+typedef int clockid_t;
+typedef long clock_t;
 
 struct timeval { time_t tv_sec; suseconds_t tv_usec; };
 struct timespec { time_t tv_sec; long tv_nsec; };

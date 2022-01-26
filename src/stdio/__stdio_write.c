@@ -33,7 +33,10 @@ size_t __stdio_write(FILE *f, const unsigned char *buf, size_t len)
 		iov[0].iov_len -= cnt;
 	}
 	*/
-	prints_l((char*)(f->wbase), f->wpos-f->wbase);
-	prints_l((void*)buf, len);
+	write_file(f->fd, (char*)f->wbase, (char*)f->wpos - (char*)f->wbase);
+   write_file(f->fd, (char *)buf, len);
+        
+   f->wend = f->buf + f->buf_size;
+   f->wpos = f->wbase = f->buf;
 	return f->wpos-f->wbase + len;
 }

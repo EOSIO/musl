@@ -32,10 +32,8 @@ unsigned long strtoul (const char *__restrict, char **__restrict, int);
 long long strtoll (const char *__restrict, char **__restrict, int);
 unsigned long long strtoull (const char *__restrict, char **__restrict, int);
 
-/*
 int rand (void);
 void srand (unsigned);
-*/
 
 void *malloc (size_t);
 void *calloc (size_t, size_t);

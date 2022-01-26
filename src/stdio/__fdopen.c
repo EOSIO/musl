@@ -1,7 +1,7 @@
 #include "stdio_impl.h"
 #include <stdlib.h>
-#include <sys/ioctl.h>
-#include <fcntl.h>
+// #include <sys/ioctl.h>
+// #include <fcntl.h>
 #include <errno.h>
 #include <string.h>
 #include "libc.h"
@@ -9,7 +9,7 @@
 FILE *__fdopen(int fd, const char *mode)
 {
 	FILE *f;
-	struct winsize wsz;
+	// struct winsize wsz;
 
 	/* Check for valid initial mode character */
 	if (!strchr("rwa", *mode)) {
@@ -26,6 +26,7 @@ FILE *__fdopen(int fd, const char *mode)
 	/* Impose mode restrictions */
 	if (!strchr(mode, '+')) f->flags = (*mode == 'r') ? F_NOWR : F_NORD;
 
+#if 0
 	/* Apply close-on-exec flag */
 	if (strchr(mode, 'e')) __syscall(SYS_fcntl, fd, F_SETFD, FD_CLOEXEC);
 
@@ -36,14 +37,15 @@ FILE *__fdopen(int fd, const char *mode)
 			__syscall(SYS_fcntl, fd, F_SETFL, flags | O_APPEND);
 		f->flags |= F_APP;
 	}
-
+#endif
+        
 	f->fd = fd;
 	f->buf = (unsigned char *)f + sizeof *f + UNGET;
 	f->buf_size = BUFSIZ;
 
 	/* Activate line buffered mode for terminals */
 	f->lbf = EOF;
-	if (!(f->flags & F_NOWR) && !__syscall(SYS_ioctl, fd, TIOCGWINSZ, &wsz))
+	if (!(f->flags & F_NOWR) && isatty(fd))
 		f->lbf = '\n';
 
 	/* Initialize op ptrs. No problem if some are unneeded. */

@@ -49,7 +49,7 @@ struct tm {
 	const char *__tm_zone;
 };
 
-//clock_t clock (void);
+clock_t clock (void);
 time_t time (time_t *);
 double difftime (time_t, time_t);
 time_t mktime (struct tm *);
@@ -57,8 +57,15 @@ size_t strftime (char *__restrict, size_t, const char *__restrict, const struct 
 struct tm *gmtime (const time_t *);
 //struct tm *localtime (const time_t *);
 char *asctime (const struct tm *);
-//char *ctime (const time_t *);
-//int timespec_get(struct timespec *, int);
+// char *ctime (const time_t *);
+// int timespec_get(struct timespec *, int);
+
+#define CLOCK_REALTIME           0
+#define CLOCK_MONOTONIC          1
+__attribute__((import_name("clock_gettime"))) 
+__attribute__((__visibility__("hidden")))
+__attribute__((__weak__))
+int clock_gettime (clockid_t, struct timespec *);
 
 #define CLOCKS_PER_SEC 1000000L
 
