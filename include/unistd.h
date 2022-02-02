@@ -15,8 +15,6 @@
 extern "C" {
 #endif
    __attribute__((import_name("isatty"))) 
-   __attribute__((__visibility__("hidden")))
-   __attribute__((__weak__))
    int isatty(int);
    /**
     * Allocate page(s) of memory to accommodate the

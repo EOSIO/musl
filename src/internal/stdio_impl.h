@@ -112,13 +112,13 @@ hidden FILE *__fopen_rb_ca(const char *, FILE *, unsigned char *, size_t);
 hidden int __fclose_ca(FILE *);
 
 __attribute__((import_name("prints_l")))
-hidden weak void prints_l(const char*, size_t);
+void prints_l(const char*, size_t);
 __attribute__((import_name("read_file")))
-hidden weak int read_file(int fd, char* buf,  size_t len);
+int read_file(int fd, char* buf,  size_t len);
 __attribute__((import_name("write_file")))
-hidden weak int write_file(int fd, char* begin, uint32_t size);
+int write_file(int fd, char* begin, uint32_t size);
 __attribute__((import_name("isatty")))
-hidden weak int isatty(int);
+int isatty(int);
 __attribute__((import_name("open_file")))
-hidden weak int open_file(const char* pathname, const char* pathname_end, const char* mode, uint32_t mode_size);
+int open_file(const char* pathname, const char* pathname_end, const char* mode, uint32_t mode_size);
 #endif

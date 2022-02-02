@@ -3,7 +3,7 @@
 #include <string.h>
 #include <errno.h>
 
-__attribute__((import_name("close_file"))) hidden weak void close_file(int fd);
+__attribute__((import_name("close_file"))) void close_file(int fd);
 
 FILE *fopen(const char *restrict filename, const char *restrict mode)
 {

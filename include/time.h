@@ -63,8 +63,6 @@ char *asctime (const struct tm *);
 #define CLOCK_REALTIME           0
 #define CLOCK_MONOTONIC          1
 __attribute__((import_name("clock_gettime"))) 
-__attribute__((__visibility__("hidden")))
-__attribute__((__weak__))
 int clock_gettime (clockid_t, struct timespec *);
 
 #define CLOCKS_PER_SEC 1000000L
