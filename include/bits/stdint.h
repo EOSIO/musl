@@ -55,7 +55,7 @@ typedef __UINTMAX_TYPE__ uintmax_t;
 #define UINT_FAST16_MAX UINT32_MAX
 #define UINT_FAST32_MAX UINT32_MAX
 
-#ifdef EOSIO_NATIVE
+#ifndef __wasm32__
 #define INTPTR_MIN      INT64_MIN
 #define INTPTR_MAX      INT64_MAX
 #define UINTPTR_MAX     UINT64_MAX
